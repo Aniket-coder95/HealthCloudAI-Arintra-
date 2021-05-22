@@ -1,0 +1,162 @@
+import java.util.*;
+ 
+class kumar
+{
+ 
+// Represents a node of an n-ary tree
+    static class Node
+    {
+        int key;
+        Vector<Node >child = new Vector<>();
+    };
+     
+    
+    static Node newNode(int key)
+    {
+        Node temp = new Node();
+        temp.key = key;
+        return temp;
+    }
+     
+    
+    static void LevelOrderTraversal(Node root , int find ,HashMap<Integer , String> h)
+    {
+        List<Integer> list = new ArrayList<Integer>();
+        if (find == 0)
+            return;
+     
+        Queue<Node > q = new LinkedList<>(); // Create a queue
+        q.add(root); // Enqueue root
+
+        while (!q.isEmpty())
+        {
+            int n = q.size();  int flag=0;
+            //list.clear();
+            
+            while (n > 0)
+            {
+                
+                Node p = q.peek();
+                q.remove();
+                list.clear();
+                //list.add(p.key);
+                
+
+                for (int i = 0; i < p.child.size(); i++)
+                    {   
+                        int xx=p.child.get(i).key;
+
+                        q.add(p.child.get(i));
+
+                        list.add(xx);
+
+                        //System.out.println(xx);
+                    }
+
+
+
+                n--;
+
+                int count=0;
+
+                for(int i=0 ; i<list.size() ; i++)
+                {
+                    if(list.get(i) == find)
+                    {
+                        count=1;
+                        break;
+                    }
+                }
+
+                if(count==1)
+                {
+                    flag=1;
+                    break;
+                }
+                
+
+
+            }//inner loop
+            if(flag==1)
+            break;
+                
+            
+            
+        }
+
+        
+        //System.out.println("list starts here :::::::");
+        for(int j=0 ; j<list.size() ; j++)
+        {
+            if(list.get(j)==find)
+            {
+
+            }else
+            {
+                System.out.println( h.get(list.get(j)) );
+                //System.out.println( (list.get(j)) );
+            }
+        }
+        //System.out.println(list);
+    }
+     
+    
+    public static void main(String[] args)
+    {
+        HashMap<Integer , String> hash = new HashMap<Integer,String>();
+        Scanner scan = new Scanner(System.in);
+
+        hash.put(0, "Root");
+        hash.put(1,"Abdominal pain");
+        hash.put(2,"Chest pain");
+        hash.put(3,"Abdominal pain, right upper quadrant" );
+        hash.put(4,"Abdominal pain, right lower quadrant" );
+        hash.put(5,"Abdominal pain, left upper quadrant" );
+        hash.put(6,"Abdominal pain, right upper quadrant" );
+        hash.put(7,"Abdominal pain, mild" );
+        hash.put(8,"Abdominal pain, moderate");
+        hash.put(9,"Abdominal pain, severe" );
+        hash.put(10,"Chest pain, left side" );
+        hash.put(11,"Chest pain, right side");
+        hash.put(12,"Chest pain, mild" );
+        hash.put(13,"Chest pain, moderate");
+        hash.put(14,"Chest pain, severe");
+
+        
+        
+        Node root = newNode(0);
+        (root.child).add(newNode(1));
+        (root.child).add(newNode(2));
+        
+        (root.child.get(0).child).add(newNode(3));
+        (root.child.get(0).child).add(newNode(4));
+        (root.child.get(0).child).add(newNode(5));
+        (root.child.get(0).child).add(newNode(6));
+        (root.child.get(0).child).add(newNode(7));
+        (root.child.get(0).child).add(newNode(8));
+        (root.child.get(0).child).add(newNode(9));
+        (root.child.get(1).child).add(newNode(10));
+        (root.child.get(1).child).add(newNode(11));
+        (root.child.get(1).child).add(newNode(12));
+        (root.child.get(1).child).add(newNode(13));
+        (root.child.get(1).child).add(newNode(14));
+
+
+        System.out.println("0 --> Root \n"+"1 --> Abdominal pain\n"+"2 --> Chest pain\n"
+        +"3 --> Abdominal pain, right upper quadrant\n"
+        +"4 --> Abdominal pain, right lower quadrant\n"
+        +"5 --> Abdominal pain, left upper quadrant\n"
+        +"6 --> Abdominal pain, right upper quadrant\n"
+        +"7 --> Abdominal pain, mild\n"
+        +"8 --> Abdominal pain, moderate\n"
+        +"9 --> Abdominal pain, severe\n"
+        +"10 --> Chest pain, left side\n"
+        +"11 --> Chest pain, right side\n"
+        +"12 --> Chest pain, mild\n"
+        +"13 --> Chest pain, moderate\n"
+        +"14 --> Chest pain, severe\n" );
+
+        System.out.println("enter input no from above table : ");
+        LevelOrderTraversal(root ,scan.nextInt() , hash);
+    }
+}
